@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:TestApp.FileExplorer.Converters">
+
+    <converters:HasValueConverter x:Key="HasValueToVisibilityConverter" />
+
+    <converters:HasValueConverter x:Key="HasValueToOpacityConverter"
+                                  TrueValue="1"
+                                  FalseValue="0" />
+
+    <converters:EmptyConverter x:Key="EmptyConverter" />
+
+    <converters:FileSizeConverter x:Key="FileSizeConverter" />
+
+</ResourceDictionary>

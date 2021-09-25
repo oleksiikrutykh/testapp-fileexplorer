@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="TestApp.FileExplorer.Views.FoldersListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:TestApp.FileExplorer.Controls" 
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:design="clr-namespace:TestApp.FileExplorer.DesignData"
+             d:DataContext="{d:DesignInstance design:DesignFoldersListViewModel, IsDesignTimeCreatable=True}"
+             mc:Ignorable="d"  
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             d:DesignHeight="450"
+             d:DesignWidth="200">
+    <Grid>
+
+        <ListBox ItemsSource="{Binding Data}"
+                 x:Name="listBox"
+                 SelectedItem="{Binding SelectedFolder, Mode=TwoWay}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"
+                               TextTrimming="CharacterEllipsis" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <controls:DataPlaceholderView PlaceholderDataSource="{Binding}" />
+
+    </Grid>
+</UserControl>

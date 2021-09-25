@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="TestApp.FileExplorer.Views.FilesListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:design="clr-namespace:TestApp.FileExplorer.DesignData"
+             xmlns:controls="clr-namespace:TestApp.FileExplorer.Controls" 
+             xmlns:local="clr-namespace:TestApp.FileExplorer.Views"
+             xmlns:wpftk="clr-namespace:WpfToolkit.Controls;assembly=VirtualizingWrapPanel"
+             xmlns:imageExtensions="clr-namespace:TestApp.FileExplorer.ImageLoading;assembly=TestApp.FileExplorer.ImageLoading"
+             xmlns:prism="http://prismlibrary.com/"
+             mc:Ignorable="d" 
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             d:DataContext="{d:DesignInstance design:DesignFilesListViewModel, IsDesignTimeCreatable=True}"
+             d:DesignHeight="750" d:DesignWidth="400">
+    
+    <Border BorderThickness="0.5"
+            BorderBrush="#FFABADB3"
+            Margin="0,0.5,0.5,0.5"
+            Padding="1">
+        <controls:DelayRenderingControl RenderingDelay="100">
+            <controls:DelayRenderingControl.ContentTemplate>
+                <DataTemplate>
+
+                    <Grid>
+                        <ListBox ItemsSource="{Binding Data}"
+                                 BorderThickness="0"
+                                 VirtualizingPanel.VirtualizationMode="Recycling"
+                                 SelectedItem="{Binding SelectedFile}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel VerticalAlignment="Center"
+                                        Width="160"
+                                        HorizontalAlignment="Center">
+
+                                        <Image Width="140" 
+                                               Height="140"
+                                               Margin="0,0,0,10"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"
+                                               imageExtensions:ImageLoader.InitialDelay="150"
+                                               imageExtensions:ImageLoader.BackgroundPriority="50"
+                                               imageExtensions:ImageLoader.ForegroundPriority="100"
+                                               imageExtensions:ImageLoader.DecodePixelWidth="140"
+                                               imageExtensions:ImageLoader.DecodePixelHeight="140"
+                                               imageExtensions:ImageLoader.CanUsePersistentCache="True"
+                                               imageExtensions:ImageLoader.Source="{Binding ImageSource}" />
+
+                                               
+                                        
+                                        <TextBlock Text="{Binding Name}"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   TextAlignment="Center" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <!--<controls:AlternativeVirtualizingWrapPanel ItemHeight="120"
+                                                                       ItemWidth="120" />-->
+                                    <wpftk:VirtualizingWrapPanel Orientation="Vertical"
+                                                         ItemSize="180,190" />
+                                    <!--<VirtualizingStackPanel Orientation="Vertical" />-->
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                        </ListBox>
+
+                        <controls:DataPlaceholderView PlaceholderDataSource="{Binding}">
+                            <controls:DataPlaceholderView.LoadingStateTemplate>
+                                <DataTemplate>
+                                    <Grid />
+                                </DataTemplate>
+                            </controls:DataPlaceholderView.LoadingStateTemplate>
+                        </controls:DataPlaceholderView>
+                    </Grid>
+               
+
+                </DataTemplate>
+            </controls:DelayRenderingControl.ContentTemplate>
+        </controls:DelayRenderingControl>
+    </Border>
+</UserControl>
